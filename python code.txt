@@ -1,0 +1,351 @@
+import random
+from datetime import datetime
+from getpass import getpass
+
+users = {}
+
+class FinanceEnterpriseSystem:
+
+    def __init__(self, age, account_type):
+
+        self.balance = 0
+        self.fd_balance = 0
+        self.transactions = []
+
+        self.age = age
+        self.account_type = account_type
+        self.transferred_amount = 0
+
+        if account_type == "MINOR":
+            self.transfer_limit = 30000
+        else:
+            self.transfer_limit = 100000
+
+    def display_balance(self):
+
+        print(f"\nSavings Balance: ₹{self.balance}")
+        print(f"FD Balance: ₹{self.fd_balance}")
+
+    def deposit(self, amount):
+
+        self.balance += amount
+
+        self.transactions.append(
+            f"{datetime.now()} - Deposited ₹{amount}"
+        )
+
+        print("Deposit Successful")
+
+    def withdraw(self, amount):
+
+        if amount > self.balance:
+            print("Insufficient Balance!")
+
+        else:
+            self.balance -= amount
+
+            self.transactions.append(
+                f"{datetime.now()} - Withdrawn ₹{amount}"
+            )
+
+            print("Withdrawal Successful")
+
+    def transfer_money(self, amount, account):
+
+        if self.transferred_amount + amount > self.transfer_limit:
+            print("Transfer limit exceeded!")
+            return
+
+        if amount > self.balance:
+            print("Insufficient Balance!")
+            return
+
+        self.balance -= amount
+        self.transferred_amount += amount
+
+        self.transactions.append(
+            f"{datetime.now()} - Transferred ₹{amount} to {account}"
+        )
+
+        print("Transfer Successful")
+
+    def fd_interest_rate(self, tenure_days, tax_saver=False):
+
+        senior = self.age >= 60
+        super_senior = self.age >= 80
+
+        if tax_saver:
+            return 6.50 if senior else 6.00
+
+        if tenure_days <= 14:
+            rate = 2.75
+
+        elif tenure_days <= 365:
+            rate = 6.60
+
+        elif tenure_days in [399, 400]:
+            rate = 6.60
+
+        elif tenure_days <= 996:
+            rate = 6.20
+
+        else:
+            rate = 6.00
+
+        if senior:
+            rate += 0.50
+
+        if super_senior:
+            rate += 0.25
+
+        return rate
+
+    def create_fd(self, principal, tenure_days, tax_saver=False):
+
+        if principal > self.balance:
+            print("Insufficient Balance for FD!")
+            return
+
+        self.balance -= principal
+
+        rate = self.fd_interest_rate(
+            tenure_days,
+            tax_saver
+        )
+
+        years = tenure_days / 365
+
+        maturity = principal * (1 + rate / 100) ** years
+
+        self.fd_balance += round(maturity, 2)
+
+        self.transactions.append(
+            f"{datetime.now()} - FD Created ₹{principal}"
+        )
+
+        print("\n----- Fixed Deposit Created -----")
+        print("Principal Amount: ₹", principal)
+        print("Tenure (Days):", tenure_days)
+        print("Interest Rate:", rate, "%")
+        print("Maturity Amount Added to FD: ₹", round(maturity, 2))
+
+    def withdraw_fd(self, amount):
+
+        if amount > self.fd_balance:
+            print("Insufficient FD Balance!")
+
+        else:
+            self.fd_balance -= amount
+            self.balance += amount
+
+            self.transactions.append(
+                f"{datetime.now()} - Withdrawn ₹{amount} from FD"
+            )
+
+            print("FD Withdrawal Successful")
+
+    def transaction_history(self):
+
+        print("\n----- Transactions -----")
+
+        if not self.transactions:
+            print("No transactions available.")
+
+        for t in self.transactions:
+            print(t)
+
+    def financial_report(self):
+
+        print("\n----- Financial Report -----")
+        print("Account Type:", self.account_type)
+        print("Savings Balance:", self.balance)
+        print("FD Balance:", self.fd_balance)
+        print("Transferred Amount:", self.transferred_amount)
+        print("Transfer Limit:", self.transfer_limit)
+
+    def save_transactions(self, username):
+
+        with open(f"{username}_transactions.txt", "a") as f:
+
+            for t in self.transactions:
+                f.write(t + "\n")
+
+        print("Transactions saved successfully.")
+
+    def read_transactions(self, username):
+
+        try:
+            with open(f"{username}_transactions.txt", "r") as f:
+
+                print("\n----- Saved Transactions -----")
+                print(f.read())
+
+        except FileNotFoundError:
+            print("No saved transactions found.")
+
+
+def signup():
+
+    username = input("Enter username: ")
+
+    if username in users:
+        print("Account already exists!")
+        return None
+
+    password = getpass("Create password: ")
+
+    age = int(input("Enter age: "))
+
+    account_type = "MINOR" if age < 18 else "MAJOR"
+
+    users[username] = {
+        "password": password,
+        "age": age,
+        "account_type": account_type
+    }
+
+    print("Account created successfully!")
+
+    return username
+
+
+def login():
+
+    username = input("Username: ")
+
+    password = getpass("Password: ")
+
+    if username in users and users[username]["password"] == password:
+        return username
+
+    print("Invalid credentials!")
+
+    return None
+
+
+def otp_verification():
+
+    otp = random.randint(1000, 9999)
+
+    print("OTP:", otp)
+
+    entered_otp = int(input("Enter OTP: "))
+
+    return entered_otp == otp
+
+
+def show_menu():
+
+    print("\n====== Finance System ======")
+    print("1. Deposit")
+    print("2. Withdraw")
+    print("3. Transfer Money")
+    print("4. Check Balance")
+    print("5. Transaction History")
+    print("6. Create Fixed Deposit")
+    print("7. Withdraw from Fixed Deposit")
+    print("8. Financial Report")
+    print("9. Save Transactions")
+    print("10. Read Transactions")
+    print("11. Exit")
+
+
+# Main Program
+
+print("1. Login")
+print("2. Create Account")
+
+choice = input("Choose option: ")
+
+username = signup() if choice == "2" else None
+
+while not username:
+    username = login()
+
+if not otp_verification():
+    print("OTP Verification Failed!")
+    exit()
+
+user = users[username]
+
+system = FinanceEnterpriseSystem(
+    user["age"],
+    user["account_type"]
+)
+
+print("\nAccess Granted!")
+
+while True:
+
+    show_menu()
+
+    ch = int(input("Enter choice: "))
+
+    if ch == 1:
+
+        amount = float(input("Enter amount to deposit: "))
+        system.deposit(amount)
+
+    elif ch == 2:
+
+        amount = float(input("Enter amount to withdraw: "))
+        system.withdraw(amount)
+
+    elif ch == 3:
+
+        amount = float(input("Enter amount to transfer: "))
+        receiver = input("Enter receiver account: ")
+
+        system.transfer_money(amount, receiver)
+
+    elif ch == 4:
+
+        system.display_balance()
+
+    elif ch == 5:
+
+        system.transaction_history()
+
+    elif ch == 6:
+
+        principal = float(input("FD Amount: "))
+        tenure = int(input("Tenure (Days): "))
+
+        tax_saver = input(
+            "Tax Saver FD? (y/n): "
+        ).lower() == "y"
+
+        system.create_fd(
+            principal,
+            tenure,
+            tax_saver
+        )
+
+    elif ch == 7:
+
+        amount = float(
+            input("Enter FD withdrawal amount: ")
+        )
+
+        system.withdraw_fd(amount)
+
+    elif ch == 8:
+
+        system.financial_report()
+
+    elif ch == 9:
+
+        system.save_transactions(username)
+
+    elif ch == 10:
+
+        system.read_transactions(username)
+
+    elif ch == 11:
+
+        print("Exiting Program...")
+        break
+
+    else:
+
+        print("Invalid Choice!")

@@ -1,0 +1,188 @@
+1. Login
+2. Create Account
+Choose option: 2
+Enter username: 1234
+Create password: 
+Enter age: 19
+Account created successfully!
+OTP: 7222
+Enter OTP: 7222
+
+Access Granted!
+
+====== Finance System ======
+1. Deposit
+2. Withdraw
+3. Transfer Money
+4. Check Balance
+5. Transaction History
+6. Create Fixed Deposit
+7. Withdraw from Fixed Deposit
+8. Financial Report
+9. Save Transactions
+10. Read Transactions
+11. Exit
+Enter choice: 1
+Enter amount to deposit: 100000
+Deposit Successful
+
+====== Finance System ======
+1. Deposit
+2. Withdraw
+3. Transfer Money
+4. Check Balance
+5. Transaction History
+6. Create Fixed Deposit
+7. Withdraw from Fixed Deposit
+8. Financial Report
+9. Save Transactions
+10. Read Transactions
+11. Exit
+Enter choice: 2
+Enter amount to withdraw: 50000
+Withdrawal Successful
+
+====== Finance System ======
+1. Deposit
+2. Withdraw
+3. Transfer Money
+4. Check Balance
+5. Transaction History
+6. Create Fixed Deposit
+7. Withdraw from Fixed Deposit
+8. Financial Report
+9. Save Transactions
+10. Read Transactions
+11. Exit
+Enter choice: 3
+Enter amount to transfer: 25000
+Enter receiver account: 5678
+Transfer Successful
+
+====== Finance System ======
+1. Deposit
+2. Withdraw
+3. Transfer Money
+4. Check Balance
+5. Transaction History
+6. Create Fixed Deposit
+7. Withdraw from Fixed Deposit
+8. Financial Report
+9. Save Transactions
+10. Read Transactions
+11. Exit
+Enter choice: 4
+
+Savings Balance: ₹25000.0
+FD Balance: ₹0
+
+====== Finance System ======
+1. Deposit
+2. Withdraw
+3. Transfer Money
+4. Check Balance
+5. Transaction History
+6. Create Fixed Deposit
+7. Withdraw from Fixed Deposit
+8. Financial Report
+9. Save Transactions
+10. Read Transactions
+11. Exit
+Enter choice: 5
+
+----- Transactions -----
+2026-05-28 12:06:28.442260 - Deposited ₹100000.0
+2026-05-28 12:06:41.394102 - Withdrawn ₹50000.0
+2026-05-28 12:06:56.272071 - Transferred ₹25000.0 to 5678
+
+====== Finance System ======
+1. Deposit
+2. Withdraw
+3. Transfer Money
+4. Check Balance
+5. Transaction History
+6. Create Fixed Deposit
+7. Withdraw from Fixed Deposit
+8. Financial Report
+9. Save Transactions
+10. Read Transactions
+11. Exit
+Enter choice: 6
+FD Amount: 10000
+Tenure (Days): 60
+Tax Saver FD? (y/n): 1000
+
+----- Fixed Deposit Created -----
+Principal Amount: ₹ 10000.0
+Tenure (Days): 60
+Interest Rate: 6.6 %
+Maturity Amount Added to FD: ₹ 10105.62
+
+====== Finance System ======
+1. Deposit
+2. Withdraw
+3. Transfer Money
+4. Check Balance
+5. Transaction History
+6. Create Fixed Deposit
+7. Withdraw from Fixed Deposit
+8. Financial Report
+9. Save Transactions
+10. Read Transactions
+11. Exit
+Enter choice: 7
+Enter FD withdrawal amount: 5000
+FD Withdrawal Successful
+
+====== Finance System ======
+1. Deposit
+2. Withdraw
+3. Transfer Money
+4. Check Balance
+5. Transaction History
+6. Create Fixed Deposit
+7. Withdraw from Fixed Deposit
+8. Financial Report
+9. Save Transactions
+10. Read Transactions
+11. Exit
+Enter choice: 8
+
+----- Financial Report -----
+Account Type: MAJOR
+Savings Balance: 20000.0
+FD Balance: 5105.620000000001
+Transferred Amount: 25000.0
+Transfer Limit: 100000
+
+====== Finance System ======
+1. Deposit
+2. Withdraw
+3. Transfer Money
+4. Check Balance
+5. Transaction History
+6. Create Fixed Deposit
+7. Withdraw from Fixed Deposit
+8. Financial Report
+9. Save Transactions
+10. Read Transactions
+11. Exit
+Enter choice: 10
+No saved transactions found.
+
+====== Finance System ======
+1. Deposit
+2. Withdraw
+3. Transfer Money
+4. Check Balance
+5. Transaction History
+6. Create Fixed Deposit
+7. Withdraw from Fixed Deposit
+8. Financial Report
+9. Save Transactions
+10. Read Transactions
+11. Exit
+Enter choice: 11
+Exiting Program...
+
+=== Code Execution Successful ===
